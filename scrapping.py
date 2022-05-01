@@ -6,12 +6,22 @@ import requests
 #----------------------------------------------------------------
 #Euro Extraction
 
-url_euro= 'https://si3.bcentral.cl/Bdemovil/BDE/Series/MOV_ID_TC2'
+url_euro= 'https://si3.bcentral.cl/indicadoressiete/secure/Serie.aspx?gcode=PRE_EUR&param=cgBnAE8AOQBlAGcAIwBiAFUALQBsAEcAYgBOAEkASQBCAEcAegBFAFkAeABkADgASAA2AG8AdgB2AFMAUgBYADIAQwBzAEEARQBMAG8ASgBWADQATABrAGQAZAB1ADIAeQBBAFAAZwBhADIAbABWAHcAXwBXAGgATAAkAFIAVAB1AEIAbAB3AFoAdQBRAFgAZwA5AHgAdgAwACQATwBZADcAMwAuAGIARwBFAFIASwAuAHQA'
 euroResults= requests.get(url_euro)
 sopa= BeautifulSoup(euroResults.text,'lxml')
 
 
-table1= sopa.find("table", attrs={"class":"dede"})
+
+table1= sopa.find_all("th")
+table2= sopa.find_all("span", attrs={"class": "obs"})
+#print(table2)
+
+euro = []
+
+for td in table2:
+    if td.text!= "": 
+        euro= td.text
+    print(euro)    
 
 
 
