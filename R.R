@@ -4,7 +4,7 @@ library(ggplot2)
 #EuroUSD <- read.csv("C:/Users/sebas/Downloads/EuroUSD.csv", sep=",", header=TRUE, quote="\"")
 
 #EuroUSD <- read.csv2("file:///home/giancarlo/Escritorio/proyectos/webScrapping/EuroUSD.csv", sep=",", header=TRUE, quote="\"")
-EuroUSD<- read.csv2("file:///home/giancarlo/Escritorio/proyectos/webScrapping/EURUSD.csv", sep=",", header=TRUE, quote="\"")
+EuroUSD<- read.csv2("file:///home/giancarlo/Escritorio/proyectos/webScrapping/scrapping/EURUSD.csv", sep=",", header=TRUE, quote="\"")
 
 datos <-EuroUSD$Último
 promedioDatos<- mean(datos)
@@ -21,13 +21,30 @@ head(EuroUSD$Fecha)
 str(EuroUSD)
 
 
-p<-ggplot(EuroUSD, aes(x=Fecha, y=Último)) + 
+
+
+generate.PDF<- function(data,prom){
+
+    pdf(file="/home/giancarlo/Escritorio/proyectos/webScrapping/scrapping/myplot.pdf",
+    onefile=T, 
+    width=10,
+    height=8)
+
+    p<-ggplot(data, aes(x=Fecha, y=Último)) + 
           geom_point() +
-          geom_hline(yintercept=promedioDatos, colour="red") +
+          geom_hline(yintercept=prom, colour="red") +
           theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
-X11()
-plot(p)
-Sys.sleep(99999)
+
+    print(p)
+    #X11()
+    #plot(p)     
+    #Sys.sleep(99999)
+    dev.off()
+
+}
+
+generate.PDF(EuroUSD,promedioDatos)
+
 #m<-MASS::rlm( datos ~ Fecha, data=EuroUSD, family=binomial )
 
 
