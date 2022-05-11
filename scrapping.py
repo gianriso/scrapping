@@ -1,9 +1,6 @@
 from bs4 import BeautifulSoup
 import requests
 
-
-
-#----------------------------------------------------------------
 #Euro Extraction
 
 url_euro= 'https://si3.bcentral.cl/indicadoressiete/secure/Serie.aspx?gcode=PRE_EUR&param=cgBnAE8AOQBlAGcAIwBiAFUALQBsAEcAYgBOAEkASQBCAEcAegBFAFkAeABkADgASAA2AG8AdgB2AFMAUgBYADIAQwBzAEEARQBMAG8ASgBWADQATABrAGQAZAB1ADIAeQBBAFAAZwBhADIAbABWAHcAXwBXAGgATAAkAFIAVAB1AEIAbAB3AFoAdQBRAFgAZwA5AHgAdgAwACQATwBZADcAMwAuAGIARwBFAFIASwAuAHQA'
@@ -17,11 +14,10 @@ table2= sopa.find_all("span", attrs={"class": "obs"})
 #print(table2)
 
 euro = []
-
 for td in table2:
     if td.text!= "": 
         euro= td.text
-    print(euro)    
+    #print(euro)    
 
 
 
