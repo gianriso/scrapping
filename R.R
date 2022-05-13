@@ -1,10 +1,22 @@
 #install.packages("languageserver")
 #install.packages("ggplot2",dependencies=TRUE)
+#install.packages("reticulate")
+
+
+library(reticulate)
 library(ggplot2)
+
+Sys.setenv(RETICULATE_PYTHON= ".venv/bin/python")
+reticulate::py_config()
+
 #EuroUSD <- read.csv("C:/Users/sebas/Downloads/EuroUSD.csv", sep=",", header=TRUE, quote="\"")
 
 #EuroUSD <- read.csv2("file:///home/giancarlo/Escritorio/proyectos/webScrapping/EuroUSD.csv", sep=",", header=TRUE, quote="\"")
 EuroUSD<- read.csv2("file:///home/giancarlo/Escritorio/proyectos/webScrapping/scrapping/EURUSD.csv", sep=",", header=TRUE, quote="\"")
+
+
+
+
 
 datos <-EuroUSD$Último
 promedioDatos<- mean(datos)
