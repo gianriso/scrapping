@@ -3,19 +3,14 @@
 #install.packages("reticulate")
 
 
-library(reticulate)
+#library(reticulate)
 library(ggplot2)
 
-Sys.setenv(RETICULATE_PYTHON= ".venv/bin/python")
-reticulate::py_config()
 
 #EuroUSD <- read.csv("C:/Users/sebas/Downloads/EuroUSD.csv", sep=",", header=TRUE, quote="\"")
 
 #EuroUSD <- read.csv2("file:///home/giancarlo/Escritorio/proyectos/webScrapping/EuroUSD.csv", sep=",", header=TRUE, quote="\"")
 EuroUSD<- read.csv2("file:///home/giancarlo/Escritorio/proyectos/webScrapping/scrapping/EURUSD.csv", sep=",", header=TRUE, quote="\"")
-
-
-
 
 
 datos <-EuroUSD$Último
@@ -34,6 +29,7 @@ str(EuroUSD)
 
 
 
+write.csv(EuroUSD, "EURUSD2.csv")
 
 generate.PDF<- function(data,prom){
 
@@ -47,11 +43,13 @@ generate.PDF<- function(data,prom){
           geom_hline(yintercept=prom, colour="red") +
           theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust=1))
 
+
     print(p)
     #X11()
     #plot(p)     
     #Sys.sleep(99999)
-    dev.off()
+    #dev.off()
+    ggsave("imag.jpg", plot = p) 
 
 }
 
@@ -59,4 +57,24 @@ generate.PDF(EuroUSD,promedioDatos)
 
 #m<-MASS::rlm( datos ~ Fecha, data=EuroUSD, family=binomial )
 
+#-----. . . . . . . . . . . . . . new data extraction  ...................
 
+#install.packages("readxl")
+library("readxl")
+
+
+
+predict<- read_excel("euro_predict.xlsx")
+
+summary(predict)
+
+
+datosPredOriginal <-predict$Reales
+datosPred <-predict$Datos
+
+
+
+
+
+reg_lin <- lm(datosPredOriginal ~ datosPred)
+print(reg_lin)
